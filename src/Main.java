@@ -1,20 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        //Lista de Productos
-        List<String> productos = new ArrayList<>();
-        productos.add("Producto 1");
-        System.out.println(productos.get(0));
 
         //Declaracion de Variables
         byte menu;
         boolean exit= false;
+        final double impuestoProd;
+        int prodAgregados = 1;
+        String[] listaProductos = new String[100];
+        double[] precioBaseProd = new double[100];
+        double[] precioConIvaProd = new double[100];
+        double[] cantidadProd = new double[100];
 
-
+        //Definiendo Impuesto del producto
+        System.out.println("Ingreso el Impuesto a aplicar al producto");
+        impuestoProd = scanner.nextDouble()/100;
 
         //Menu Principal
         do {
@@ -28,10 +32,24 @@ public class Main {
 
             switch (menu) {
                 case 1:
-                    System.out.println("Caso 1");
+                    System.out.println(prodAgregados);
+                    System.out.println("Ingrese el Producto");
+                    scanner.nextLine();
+                    listaProductos[prodAgregados] = scanner.nextLine();
+                    System.out.println("Precio Base Producto");
+                    precioBaseProd[prodAgregados] = scanner.nextDouble();
+                    System.out.println("Cantidad de Productos");
+                    cantidadProd[prodAgregados] = scanner.nextDouble();
+                    precioConIvaProd[prodAgregados] = precioBaseProd[prodAgregados] * impuestoProd + precioBaseProd[prodAgregados];
+                    prodAgregados++;
                     break;
                 case 2:
+                    for (int i =0; i<prodAgregados;i++){
+                        System.out.println("No:" + i+1+ "Producto: "+listaProductos[i+1]+" Precio Base del Producto: Q"+precioBaseProd[i+1]
+                                + " Precio Con Iva: "+precioConIvaProd[i+1] + "Cantidad de Productos: "+ cantidadProd[i+1]);
+                    }
                     System.out.println("Caso 2");
+
                     break;
                 case 3:
                     break;
