@@ -10,7 +10,9 @@ public class Main {
         byte menu;
         boolean exit= false;
         final double impuestoProd;
-        int prodAgregados = 1;
+        int prodAgregados = 0;
+        int codigoProducto;
+        boolean[] estadoProd = new boolean[100];
         String[] listaProductos = new String[100];
         double[] precioBaseProd = new double[100];
         double[] precioConIvaProd = new double[100];
@@ -41,24 +43,52 @@ public class Main {
                     System.out.println("Cantidad de Productos");
                     cantidadProd[prodAgregados] = scanner.nextDouble();
                     precioConIvaProd[prodAgregados] = precioBaseProd[prodAgregados] * impuestoProd + precioBaseProd[prodAgregados];
+                    estadoProd[prodAgregados]=true;
                     prodAgregados++;
                     break;
                 case 2:
-                    for (int i =0; i<prodAgregados;i++){
-                        System.out.println("No:" + i+1+ "Producto: "+listaProductos[i+1]+" Precio Base del Producto: Q"+precioBaseProd[i+1]
-                                + " Precio Con Iva: "+precioConIvaProd[i+1] + "Cantidad de Productos: "+ cantidadProd[i+1]);
+                    for (int i =0; i<=prodAgregados;i++){
+                        if (estadoProd[i] ==true) {
+                            System.out.println("No:" + (i+1)  + " Producto: " + listaProductos[i] + " Precio Base del Producto:" +
+                                    " Q" + precioBaseProd[i] + " Precio Con Iva: " + precioConIvaProd[i]
+                                    + "Cantidad de Productos: " + cantidadProd[i]);
+                        }
                     }
-                    System.out.println("Caso 2");
-
                     break;
                 case 3:
+                    System.out.println("Ingrese el Codigo del Producto");
+                    scanner.nextLine();
+                    codigoProducto = scanner.nextInt()-1;
+                    System.out.println("No:" + (codigoProducto+1) + "Producto: "+listaProductos[codigoProducto]+" Precio Base del Producto: Q"+precioBaseProd[codigoProducto]
+                            + " Precio Con Iva: "+precioConIvaProd[codigoProducto] + "Cantidad de Productos: "+ cantidadProd[codigoProducto]);
+                    System.out.println("Ingrese la nueva cantidad del producto");
+                    cantidadProd[codigoProducto] = scanner.nextDouble();
+                    System.out.println("********** Cantidad de Producto Actualizada **********");
                     break;
                 case 4:
+                    String respuesta;
+                    System.out.println("Ingrese el Codigo del Producto");
+                    codigoProducto = scanner.nextInt()-1;
+                    System.out.println("No: " + (codigoProducto+1) + "Producto: "+listaProductos[codigoProducto]+" Precio Base del Producto: Q"+precioBaseProd[codigoProducto]
+                            + " Precio Con Iva: "+precioConIvaProd[codigoProducto] + "Cantidad de Productos: "+ cantidadProd[codigoProducto]);
+                    System.out.println("Desea Eliminar el producto D:?  S/N");
+                    scanner.nextLine();
+                    respuesta = scanner.nextLine();
+                    if (respuesta.equalsIgnoreCase("S")){
+                        listaProductos[codigoProducto] = "null";
+                        precioBaseProd[codigoProducto] = 0;
+                        precioConIvaProd[codigoProducto] = 0;
+                        cantidadProd[codigoProducto] = 0;
+                        estadoProd[codigoProducto]=false;
+                        System.out.println("Producto borrado Exitosamente :)");
+                    }
+                    System.out.println(respuesta);
                     break;
                 case 5:
+
                     exit = true;
                     break;
             }
-        }while (exit == false);
+        }while (!exit);
     }
 }
