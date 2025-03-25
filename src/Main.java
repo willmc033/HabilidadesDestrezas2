@@ -7,9 +7,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         //Declaracion de Variables
+        final double impuestoProd;
         byte menu;
         boolean exit= false;
-        final double impuestoProd;
         int prodAgregados = 0;
         int codigoProducto;
         boolean[] estadoProd = new boolean[100];
